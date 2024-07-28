@@ -26,7 +26,7 @@ public class Usuario {
     private String nombreUsuario;
     @NotBlank(message = "Email no puede estar vacío")
     @Column(unique = true)
-    @Email(message = "El nombreUsuario no es válido")
+    @Email(message = "El email no es válido")
     private String email;
     @NotBlank(message = "Contraseña no puede estar vacío")
     private String passwordHash;
