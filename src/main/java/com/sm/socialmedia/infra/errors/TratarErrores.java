@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RestController
 public class TratarErrores {
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity tratarErroresDeValidacion(ConstraintViolationException e) {
+    public ResponseEntity<ApiResponse> tratarErroresDeValidacion(ConstraintViolationException e) {
         Set<ConstraintViolation<?>> violaciones = e.getConstraintViolations();
         List<DatosErrorValidacion> errs = violaciones.stream()
                 .map(v -> new DatosErrorValidacion(v.getMessage()))
