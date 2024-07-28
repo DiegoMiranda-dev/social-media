@@ -30,13 +30,13 @@ public class Usuario {
     private String email;
     @NotBlank(message = "Contraseña no puede estar vacío")
     private String passwordHash;
-    @Column(name = "is_Enabled")
+    @Column(name = "is_enabled")
     private Boolean isEnabled;
-    @Column(name = "account_Expired")
+    @Column(name = "account_expired")
     private Boolean accountExpired;
-    @Column(name = "account_Locked")
+    @Column(name = "account_locked")
     private Boolean accountLocked;
-    @Column(name = "credentials_Expired")
+    @Column(name = "credentials_expired")
     private Boolean credentialsExpired;
 
 
