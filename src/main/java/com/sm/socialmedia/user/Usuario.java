@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Set;
+
 @Table(name = "usuarios")
 @Entity(name = "usuario")
 @Setter
@@ -38,6 +40,14 @@ public class Usuario {
     private Boolean accountLocked;
     @Column(name = "credentials_expired")
     private Boolean credentialsExpired;
+
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = RolUsuario.class, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name="usuario_roles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<RolUsuario> roles;
 
 
     public Usuario(DatosRegistroUsuario datosRegistroUsuario) {

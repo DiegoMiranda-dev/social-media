@@ -3,15 +3,15 @@ package com.sm.socialmedia.service;
 import com.sm.socialmedia.infra.errors.DatosErrorValidacion;
 import com.sm.socialmedia.repository.UsuarioRepository;
 import com.sm.socialmedia.response.ApiResponse;
-import com.sm.socialmedia.user.DatosLoginUsuario;
-import com.sm.socialmedia.user.DatosRegistroUsuario;
-import com.sm.socialmedia.user.Usuario;
+import com.sm.socialmedia.user.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +25,12 @@ public class UsuarioService {
     }
 
     public ApiResponse registrarUsuario(DatosRegistroUsuario datosRegistroUsuario, BindingResult result) {
+
+        Set<RolUsuario> roles = new HashSet<>();
+        roles.add(RolUsuario.builder()
+                .rol(Rol.USER)
+                .build());
+
         if (result.hasErrors()) {
             List<DatosErrorValidacion> errores = result.getAllErrors().stream()
                     .map(error -> new DatosErrorValidacion(error.getDefaultMessage()))
@@ -45,6 +51,7 @@ public class UsuarioService {
             usuario.setAccountExpired(false);
             usuario.setAccountLocked(false);
             usuario.setCredentialsExpired(false);
+            usuario.setRoles(roles);
 
             usuarioRepository.save(usuario);
             return new ApiResponse(true, "Registrado con exito :)", null);
